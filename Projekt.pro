@@ -8,7 +8,8 @@ SOURCES += main.cpp \
     manualimpltest.cpp \
     exprtempltypesizetest.cpp \
     exprtemplsizetest.cpp \
-    noexprtempltest.cpp
+    noexprtempltest.cpp \
+    smallvectorstest.cpp
 
 HEADERS += \
     ExprTemplTypeSize/vector.h \

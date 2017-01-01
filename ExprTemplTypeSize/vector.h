@@ -19,6 +19,13 @@ class Vec : public VecExpression<Type, Vec<Type, N>> {
     Type operator[](uint i) const { return elems[i]; }
     Type &operator[](uint i)      { return elems[i]; }
     uint size() const               { return N; }
+    Type dot(Vec<Type, N> const& vec) {
+        Type result = 0;
+        for (uint i = 0; i < N; ++i) {
+            result += elems[i] * vec[i];
+        }
+        return result;
+    }
 
     Vec() {}
 
@@ -136,6 +143,7 @@ Div<Type, E> const
 operator/(VecExpression<Type, E> const& v, Type s) {
    return Div<Type, E>(s, v);
 }
+
 
 // 1060 ms
 
