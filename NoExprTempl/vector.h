@@ -4,9 +4,8 @@ class Vector
 {
 public:
     const static unsigned int N=3;
-    typename double Type;
 
-    Type value[N];
+    double value[N];
 
     //double x, y, z;
     Vector() {

@@ -64,9 +64,10 @@ int main(int argc, char *argv[])
     std::cout << "cas pro Vec<double,3>:" << elapsed1.count() << '\n';
 
 
+
     /*
     for (int i = 0; i < 1000000; ++i) {
-        d1[i] = v1[i].dot(v2[i]);
+        d1.push_back(v1[i].dot(v2[i]));
     }
     */
 
@@ -111,11 +112,13 @@ int main(int argc, char *argv[])
     auto elapsed2 = std::chrono::duration_cast<std::chrono::milliseconds>(end2 - start2);
     std::cout << "cas pro arma::vec3:" << elapsed2.count() << '\n';
 
+
     /*
     for (int i = 0; i < 1000000; ++i) {
-        d2[i] = dot(a1[i],a2[i]);
+        d2.push_back(dot(a1[i],a2[i]));
     }
     */
+
 
     cout << pom2[0] << endl << pom2[1] << endl << pom2[2] << endl;
 
@@ -135,19 +138,19 @@ int main(int argc, char *argv[])
         ra2[i] = fRand(-100,100);
     }
 
-    double * pom3 = new double[3];
-    pom3[0] = 0;
-    pom3[1] = 0;
-    pom3[2] = 0;
+    arma::vec3 pom3;
+    pom2[0] = 0;
+    pom2[1] = 0;
+    pom2[2] = 0;
+
+
 
     //double * d3 = new double[1000000];
 
     auto start3 = std::chrono::system_clock::now();
 
     for (int i = 0; i < 1000000; ++i) {
-        pom3[0] = pom3[0] + ra1[3*i];
-        pom3[1] = pom3[1] + ra1[3*i + 1];
-        pom3[2] = pom3[2] + ra1[3*i + 2];
+        pom3 = pom3 + ra1.get(i);
     }
 
     auto end3 = std::chrono::system_clock::now();
