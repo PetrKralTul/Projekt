@@ -84,7 +84,7 @@ int main(int argc, char *argv[])
 
     //Armadillo
 
-    /*
+    // /*
     std::vector<arma::vec3> a1;
 
     for (int i = 0; i < 1000000; ++i) {
@@ -108,7 +108,9 @@ int main(int argc, char *argv[])
     pom2[1] = 0;
     pom2[2] = 0;
 
-    std::vector<double> d2;
+    //std::vector<double> d2;
+
+    double * d2 = new double[1000000];
 
     auto start2 = std::chrono::system_clock::now();
 
@@ -127,7 +129,7 @@ int main(int argc, char *argv[])
 
     for (int j = 0; j < 10; ++j) {
         for (int i = 0; i < 1000000; ++i) {
-            d2.push_back(dot(a1[i],a2[i]));
+            d2[i] = dot(a1[i],a2[i]);
         }
     }
 
@@ -142,7 +144,7 @@ int main(int argc, char *argv[])
     //fastest
 
 
-    */
+    // */
     raw_arma ra1(1000000);
 
     for (int i = 0; i < 3000000; ++i) {
