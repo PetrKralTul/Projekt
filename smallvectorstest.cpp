@@ -52,7 +52,7 @@ int main(int argc, char *argv[])
     pom1[1] = 0;
     pom1[2] = 0;
 
-    std::vector<double> d1;
+    double * d1 = new double[1000000];
 
     auto start1 = std::chrono::system_clock::now();
 
@@ -70,7 +70,7 @@ int main(int argc, char *argv[])
 
     for (int j = 0; j < 10; ++j) {
         for (int i = 0; i < 1000000; ++i) {
-            d1.push_back(v1[i].dot(v2[i]));
+            d1[i] = v1[i].dot(v2[i]);
         }
     }
 
@@ -84,6 +84,7 @@ int main(int argc, char *argv[])
 
     //Armadillo
 
+    /*
     std::vector<arma::vec3> a1;
 
     for (int i = 0; i < 1000000; ++i) {
@@ -140,6 +141,8 @@ int main(int argc, char *argv[])
 
     //fastest
 
+
+    */
     raw_arma ra1(1000000);
 
     for (int i = 0; i < 3000000; ++i) {
@@ -153,9 +156,9 @@ int main(int argc, char *argv[])
     }
 
     arma::vec3 pom3;
-    pom2[0] = 0;
-    pom2[1] = 0;
-    pom2[2] = 0;
+    pom3[0] = 0;
+    pom3[1] = 0;
+    pom3[2] = 0;
 
 
 
@@ -188,6 +191,7 @@ int main(int argc, char *argv[])
     cout << pom3[0] << endl << pom3[1] << endl << pom3[2] << endl;
 
     cout << "skalarni soucin raw_arma:" << d3[0] << endl;
+
 
     return 0;
 }
