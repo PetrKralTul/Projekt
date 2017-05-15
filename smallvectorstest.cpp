@@ -1,6 +1,7 @@
 #include <iostream>
-#define ARMA_DONT_USE_WRAPPER
-#include <armadillo>
+//#define ARMA_DONT_USE_WRAPPER //clapack wrapper
+#include "Armor/vec.h"
+//#include <armadillo>
 #include "ExprTemplTypeSize/vector.h"
 #include <chrono>
 
@@ -193,6 +194,92 @@ int main(int argc, char *argv[])
     cout << pom3[0] << endl << pom3[1] << endl << pom3[2] << endl;
 
     cout << "skalarni soucin raw_arma:" << d3[0] << endl;
+
+
+
+
+
+    //Armor <<-----------
+
+
+
+
+    std::vector<Armor::Vec<double, 3>> va1(1000000);
+
+    for (int i = 0; i < 1000000; ++i) {
+        //va1.push_back(Armor::Vec());
+        va1[i][0] = fRand(-100,100);
+        va1[i][1] = fRand(-100,100);
+        va1[i][2] = fRand(-100,100);
+    }
+
+    std::vector<Armor::Vec<double, 3>> va2(1000000);
+
+    for (int i = 0; i < 1000000; ++i) {
+        //va2.push_back(Armor::Vec<double, 3>());
+        va2[i][0] = fRand(-100,100);
+        va2[i][1] = fRand(-100,100);
+        va2[i][2] = fRand(-100,100);
+    }
+
+
+    Armor::Vec<double, 3> poma1;
+    //arma::vec3 poma1;
+    poma1[0] = 0;
+    poma1[1] = 0;
+    poma1[2] = 0;
+
+
+    double * da1 = new double[1000000];
+
+    //Armor::Vec<double, 3> * va1data = va1.data();
+
+    auto starta1 = std::chrono::system_clock::now();
+
+    for (int j = 0; j < 20; ++j) {
+        for (int i = 0; i < 1000000; ++i) {
+            poma1 = poma1 + va1[i] ; //  Stale potreba rucne pretypovat -- nebo volat .arma() 536 ms vs bez arma() 611 ms -- asi vyreseno
+            //poma1 = poma1 + va1[i];
+        }
+    }
+
+    auto enda1 = std::chrono::system_clock::now();
+    auto elapseda1 = std::chrono::duration_cast<std::chrono::milliseconds>(enda1 - starta1);
+    std::cout << "cas pro Armor::Vec<double,3>:" << elapseda1.count() << endl << endl;
+
+    auto starta4 = std::chrono::system_clock::now();
+
+    for (int j = 0; j < 10; ++j) {
+        for (int i = 0; i < 1000000; ++i) {
+            da1[i] = dot(va1[i], va2[i]); // Stale potreba rucne pretypovat -- nebo volat .arma() - vyreseno OK a je rychlejsi nez s arma()
+        }
+    }
+
+    auto enda4 = std::chrono::system_clock::now();
+    auto elapseda4 = std::chrono::duration_cast<std::chrono::milliseconds>(enda4 - starta4);
+    std::cout << "skalarni soucin Armor::Vec<double,3>:" << elapseda4.count() << endl << endl;
+
+    cout << poma1[0] << endl << poma1[1] << endl << poma1[2] << endl;
+
+    cout << "skalarni soucin Armor vec double 3:" << da1[0] << endl;
+
+    //cout << va1[0][0] << endl << va1[0][1] << endl << va1[0][2] << endl;
+
+    /*
+    arma::vec3 zk1;
+    zk1[0] = 1;
+    zk1[1] = 2;
+    zk1[2] = 3;
+
+    Armor::Vec<double, 3> zk2;
+    zk2[0] = 0;
+    zk2[1] = 0;
+    zk2[2] = 0;
+
+    zk2 = zk1;
+
+    cout << zk2[0] << endl << zk2[1] << endl << zk2[2] << endl;
+    */
 
 
     return 0;
