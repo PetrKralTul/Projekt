@@ -46,6 +46,14 @@ public:
     }
 };
 
+template <class Type>
+inline const Vec<Type, 3> & operator=(Vec<Type, 3> & vec, const typename arma::Mat<Type>::template fixed<3,1> & other) {
+    vec[0] = other[0];
+    vec[1] = other[1];
+    vec[2] = other[2];
+    return vec;
+}
+
 template <class Type, uint Size>
 inline double dot(const Vec<Type, Size> & a, const Vec<Type, Size> & b) {
     return arma::dot(a.arma(), b.arma());
@@ -65,6 +73,7 @@ template <class Type, uint Size>
 inline typename arma::Mat<Type>::template fixed<Size,1> operator*(Type number, const Vec<Type, Size> & a) {
     return number * a.arma();
 }
+
 
 template <class Type, uint Size>
 inline typename arma::Mat<Type>::template fixed<Size,1> operator/(const Vec<Type, Size> & a, Type number) {

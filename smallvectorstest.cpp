@@ -177,7 +177,7 @@ int main(int argc, char *argv[])
 
     auto end3 = std::chrono::system_clock::now();
     auto elapsed3 = std::chrono::duration_cast<std::chrono::milliseconds>(end3 - start3);
-    std::cout << "cas pro rucni implementaci:" << elapsed3.count() << endl << endl;
+    std::cout << "cas pro raw_arma:" << elapsed3.count() << endl << endl;
 
     auto start6 = std::chrono::system_clock::now();
 
@@ -243,6 +243,8 @@ int main(int argc, char *argv[])
         }
     }
 
+    //zkusit poma1 arma::vec3
+
     auto enda1 = std::chrono::system_clock::now();
     auto elapseda1 = std::chrono::duration_cast<std::chrono::milliseconds>(enda1 - starta1);
     std::cout << "cas pro Armor::Vec<double,3>:" << elapseda1.count() << endl << endl;
@@ -281,6 +283,11 @@ int main(int argc, char *argv[])
     cout << zk2[0] << endl << zk2[1] << endl << zk2[2] << endl;
     */
 
+    cout << va1[0][0] << endl;
+
+    va1[0] = va1[0] / 5.0;
+
+    cout << va1[0][0] << endl;
 
     return 0;
 }
